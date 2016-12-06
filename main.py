@@ -10,39 +10,42 @@ class DosFasesUI(wx.Frame):
     def InitUI(self):
         self.SetTitle('Metodo Dos Fases')
         self.SetSize((400,400))
-        Titulo = wx.StaticText(self, -1, "Investigacion De Operaciones", (190,10))
+        self.Titulo = wx.StaticText(self, -1, "Investigacion De Operaciones", (190,10))
 
-        p1=wx.Panel(self)
-        p2=wx.Panel(self)
+        self.p1=wx.Panel(self)
+        self.p2=wx.Panel(self)
         
-        mainsz = wx.BoxSizer(wx.VERTICAL)
-        p1sz = wx.BoxSizer(wx.VERTICAL)
-        p2sz = wx.BoxSizer(wx.VERTICAL)
+        self.mainsz = wx.BoxSizer(wx.VERTICAL)
+        self.p1sz = wx.BoxSizer(wx.VERTICAL)
+        self.p2sz = wx.BoxSizer(wx.VERTICAL)
 
+        self.st1=wx.StaticText(self.p1,-1,"Inserte El Numero De Variables",(0,10))
+        self.txt1=wx.TextCtrl(self.p1,-1)
+        self.st2=wx.StaticText(self.p2,-1,"Inserte El Numero De Restricciones")
+        self.txt2=wx.TextCtrl(self.p2,-1)
+        self.bt=wx.Button(self,-1,"Continuar")
 
-        st1=wx.StaticText(p1,-1,"Inserte El Numero De Variables",(0,10))
-        txt1=wx.TextCtrl(p1,-1)
-        st2=wx.StaticText(p2,-1,"Inserte El Numero De Restricciones")
-        txt2=wx.TextCtrl(p2,-1)
-        bt=wx.Button(self,-1,"Continuar")
+        self.p1sz.Add(self.st1,1,wx.EXPAND|wx.ALL,10)
+        self.p1sz.Add(self.txt1,1,wx.EXPAND|wx.ALL,10)
+        self.p2sz.Add(self.st2,1,wx.EXPAND|wx.ALL,10)
+        self.p2sz.Add(self.txt2,1,wx.EXPAND|wx.ALL,10)
+        self.mainsz.Add(self.p1,1,wx.EXPAND)
+        self.mainsz.Add(self.p2,1,wx.EXPAND)
+        self.mainsz.Add(self.bt,1,wx.ALIGN_CENTRE|wx.ALL,30)
 
-        
+        self.Bind(wx.EVT_BUTTON, self.onContinuar, self.bt)
 
-        p1sz.Add(st1,1,wx.EXPAND|wx.ALL,10)
-        p1sz.Add(txt1,1,wx.EXPAND|wx.ALL,10)
-        p2sz.Add(st2,1,wx.EXPAND|wx.ALL,10)
-        p2sz.Add(txt2,1,wx.EXPAND|wx.ALL,10)
-        mainsz.Add(p1,1,wx.EXPAND)
-        mainsz.Add(p2,1,wx.EXPAND)
-        mainsz.Add(bt,1,wx.ALIGN_CENTRE|wx.ALL,30)
+        self.p1.SetSizer(self.p1sz)
+        self.p2.SetSizer(self.p2sz)
 
-        p1.SetSizer(p1sz)
-        p2.SetSizer(p2sz)
-
-        self.SetSizer(mainsz)
+        self.SetSizer(self.mainsz)
         self.Centre()
         self.Show(True)
 
+    def onContinuar(self, event):
+        var = self.txt1.GetValue()
+        res = self.txt2.GetValue()
+        print var, res
 
 class LagrangeUI(wx.Frame):
     def __init__ (self, *args, **kwargs):
@@ -50,42 +53,45 @@ class LagrangeUI(wx.Frame):
         self.InitUI()
 
     def InitUI(self):
-        self.SetTitle('Algoritmo de Lagrange')
+        self.SetTitle('Metodo Dos Fases')
         self.SetSize((400,400))
-        Titulo = wx.StaticText(self, -1, "Investigacion De Operaciones", (190,10))
+        self.Titulo = wx.StaticText(self, -1, "Investigacion De Operaciones", (190,10))
 
-        p1=wx.Panel(self)
-        p2=wx.Panel(self)
+        self.p1=wx.Panel(self)
+        self.p2=wx.Panel(self)
         
-       
+        self.mainsz = wx.BoxSizer(wx.VERTICAL)
+        self.p1sz = wx.BoxSizer(wx.VERTICAL)
+        self.p2sz = wx.BoxSizer(wx.VERTICAL)
 
-        mainsz = wx.BoxSizer(wx.VERTICAL)
-        p1sz = wx.BoxSizer(wx.VERTICAL)
-        p2sz = wx.BoxSizer(wx.VERTICAL)
+        self.st1=wx.StaticText(self.p1,-1,"Inserte El Numero De Variables",(0,10))
+        self.txt1=wx.TextCtrl(self.p1,-1)
+        self.st2=wx.StaticText(self.p2,-1,"Inserte El Numero De Restricciones")
+        self.txt2=wx.TextCtrl(self.p2,-1)
+        self.bt=wx.Button(self,-1,"Continuar")
 
+        self.p1sz.Add(self.st1,1,wx.EXPAND|wx.ALL,10)
+        self.p1sz.Add(self.txt1,1,wx.EXPAND|wx.ALL,10)
+        self.p2sz.Add(self.st2,1,wx.EXPAND|wx.ALL,10)
+        self.p2sz.Add(self.txt2,1,wx.EXPAND|wx.ALL,10)
+        self.mainsz.Add(self.p1,1,wx.EXPAND)
+        self.mainsz.Add(self.p2,1,wx.EXPAND)
+        self.mainsz.Add(self.bt,1,wx.ALIGN_CENTRE|wx.ALL,30)
 
-        st1=wx.StaticText(p1,-1,"Inserte El Numero De Variables",(0,10))
-        txt1=wx.TextCtrl(p1,-1)
-        st2=wx.StaticText(p2,-1,"Inserte El Numero De Restricciones")
-        txt2=wx.TextCtrl(p2,-1)
-        bt=wx.Button(self,-1,"Continuar")
+        self.Bind(wx.EVT_BUTTON, self.onContinuar, self.bt)
 
-        
+        self.p1.SetSizer(self.p1sz)
+        self.p2.SetSizer(self.p2sz)
 
-        p1sz.Add(st1,1,wx.EXPAND|wx.ALL,10)
-        p1sz.Add(txt1,1,wx.EXPAND|wx.ALL,10)
-        p2sz.Add(st2,1,wx.EXPAND|wx.ALL,10)
-        p2sz.Add(txt2,1,wx.EXPAND|wx.ALL,10)
-        mainsz.Add(p1,1,wx.EXPAND)
-        mainsz.Add(p2,1,wx.EXPAND)
-        mainsz.Add(bt,1,wx.ALIGN_CENTRE|wx.ALL,30)
-
-        p1.SetSizer(p1sz)
-        p2.SetSizer(p2sz)
-
-        self.SetSizer(mainsz)
+        self.SetSizer(self.mainsz)
         self.Centre()
         self.Show(True)
+
+    def onContinuar(self, event):
+        var = self.txt1.GetValue()
+        res = self.txt2.GetValue()
+        print var, res
+
 
 class ventanaInicio(wx.Frame):
     def __init__ (self, *args, **kwargs):
