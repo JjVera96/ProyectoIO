@@ -12,8 +12,8 @@ class DosFases():
 
     def __str__(self):
         cadena = "["
-        for i in range(cantVar+1):
-            for j in range(cantRes+1):
+        for i in range(cantRes+1):
+            for j in range(cantVar+2):
                 cadena += str(self.matriz[i][j]) + ", "
             cadena += "]\n"
         return cadena
@@ -29,6 +29,8 @@ class RestriccionesUI(wx.Frame):
         self.panel = wx.Panel(self)
         self.tabla = wx.grid.Grid(self.panel)
         self.tabla.CreateGrid(cantRes+1, cantVar+2)
+        self.tabla.SetCellValue(0, cantVar+1, 'objetivo')
+        self.tabla.SetCellValue(0, cantVar, '0')
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         self.sizer.Add(self.tabla)
         self.panel.SetSizer(self.sizer)
@@ -42,9 +44,9 @@ class RestriccionesUI(wx.Frame):
 
     def onContinuar(self, event):
         self.tablero = []
-        for i in range(cantVar+1):
+        for i in range(cantRes+1):
             self.linea = []
-            for j in range(cantRes+1):
+            for j in range(cantVar+2):
                 self.linea.append(self.tabla.GetCellValue(i, j))
             self.tablero.append(self.linea)
         matrix = DosFases(self.tablero)
