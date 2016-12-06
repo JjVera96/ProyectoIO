@@ -5,13 +5,18 @@ import wx.grid
 
 cantVar = 0
 cantRes = 0
-matriz = []
 
-def PrimeraParte():
-    pass
+class DosFases():
+    def __init__(self, matriz):
+        self.matriz = matriz
 
-def SegundaParte():
-    pass
+    def __str__(self):
+        cadena = "["
+        for i in range(cantVar+1):
+            for j in range(cantRes+1):
+                cadena += str(self.matriz[i][j]) + ", "
+            cadena += "]\n"
+        return cadena
 
 class RestriccionesUI(wx.Frame):   
     def __init__ (self, *args, **kwargs):       
@@ -36,14 +41,15 @@ class RestriccionesUI(wx.Frame):
         self.Show(True)
 
     def onContinuar(self, event):
-        global matriz
         self.tablero = []
-        self.linea = []
-        for i in range(cantVar):
-            for j in range(cantRes):
+        for i in range(cantVar+1):
+            self.linea = []
+            for j in range(cantRes+1):
                 self.linea.append(self.tabla.GetCellValue(i, j))
             self.tablero.append(self.linea)
-        matriz = self.tablero
+        matrix = DosFases(self.tablero)
+        print matrix
+
 
 class DosFasesUI(wx.Frame):   
     def __init__ (self, *args, **kwargs):       
