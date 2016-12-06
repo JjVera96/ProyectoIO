@@ -2,8 +2,26 @@
 import wx
 import sys
 
+cantVar = 0
+cantRes = 0
+
+class IntermedioUI(wx.Frame):
+    
+    def __init__ (self, *args, **kwargs):       
+        super(IntermedioUI, self).__init__(*args, **kwargs)
+        self.InitUI()
+
+    def InitUI(self):
+        self.SetTitle('Pidiendo')
+        self.SetSize((400,400))
+        print cantVar, cantRes
+        self.Centre()
+        self.Show(True)
+
+
 class DosFasesUI(wx.Frame):
-    def __init__ (self, *args, **kwargs):
+    
+    def __init__ (self, *args, **kwargs):       
         super(DosFasesUI, self).__init__(*args, **kwargs)
         self.InitUI()
 
@@ -43,9 +61,12 @@ class DosFasesUI(wx.Frame):
         self.Show(True)
 
     def onContinuar(self, event):
-        var = self.txt1.GetValue()
-        res = self.txt2.GetValue()
-        print var, res
+        global cantVar 
+        global cantRes
+        cantVar = self.txt1.GetValue()
+        cantRes = self.txt2.GetValue()
+        IntermedioUI(self)
+        self.Destroy()
 
 class LagrangeUI(wx.Frame):
     def __init__ (self, *args, **kwargs):
@@ -85,13 +106,10 @@ class LagrangeUI(wx.Frame):
 
         self.SetSizer(self.mainsz)
         self.Centre()
-        self.Show(True)
 
     def onContinuar(self, event):
-        var = self.txt1.GetValue()
-        res = self.txt2.GetValue()
-        print var, res
-
+        cantVar = self.txt1.GetValue()
+        cantRes = self.txt2.GetValue()
 
 class ventanaInicio(wx.Frame):
     def __init__ (self, *args, **kwargs):
@@ -124,14 +142,14 @@ class ventanaInicio(wx.Frame):
 
     def  onClickButton1(self,event):
         DosFasesUI(None)
+        self.Destroy()
        
     def onClickButton2(self,event):
         LagrangeUI(None)
+        self.Destroy()
 
     def onQuit(self,event):
         self.Destroy()
-
-
 
 if __name__ == '__main__':
     app = wx.App()
