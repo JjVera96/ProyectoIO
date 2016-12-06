@@ -65,7 +65,7 @@ class DosFasesUI(wx.Frame):
         global cantRes
         cantVar = self.txt1.GetValue()
         cantRes = self.txt2.GetValue()
-        IntermedioUI(self)
+        IntermedioUI(None)
         self.Destroy()
 
 class LagrangeUI(wx.Frame):
