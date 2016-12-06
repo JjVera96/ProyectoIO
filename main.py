@@ -23,12 +23,15 @@ class RestriccionesUI(wx.Frame):
         self.SetSize((500, 1000))
         self.panel = wx.Panel(self)
         self.tabla = wx.grid.Grid(self.panel)
-        self.tabla.CreateGrid(cantVar+1, cantRes+1)
+        self.tabla.CreateGrid(cantRes+1, cantVar+2)
         self.sizer = wx.BoxSizer(wx.VERTICAL)
         self.sizer.Add(self.tabla)
         self.panel.SetSizer(self.sizer)
         self.bt=wx.Button(self.panel,-1,"Continuar", pos = (220, 500))
         self.Bind(wx.EVT_BUTTON, self.onContinuar, self.bt)
+        self.opcion = ['Max', 'Min']
+        self.text = wx.StaticText(self.panel, -1, "Objetivo", (220,400))
+        self.edit = wx.ComboBox(self.panel, pos = (220, 450), choices = self.opcion,)
         self.Centre()
         self.Show(True)
 
@@ -41,7 +44,6 @@ class RestriccionesUI(wx.Frame):
                 self.linea.append(self.tabla.GetCellValue(i, j))
             self.tablero.append(self.linea)
         matriz = self.tablero
-
 
 class DosFasesUI(wx.Frame):   
     def __init__ (self, *args, **kwargs):       
@@ -130,21 +132,21 @@ class ventanaInicio(wx.Frame):
         self.InitUI()
 
     def InitUI(self):
-        panel = wx.Panel(self)
+        self.panel = wx.Panel(self)
         self.SetTitle('Investigacion de Operaciones')
         self.SetSize((600,600))
-        Titulo = wx.StaticText(panel, -1, "Investigacion De Operaciones", (190,10))    
-        sz=wx.BoxSizer(wx.VERTICAL)
-        boton1 = wx.Button(panel,-1, u"Dos Fases")
-        boton2 = wx.Button(panel,-1, u"Lagrange")
-        boton3 = wx.Button(panel,-1, u"Salir")       
-        sz.Add(boton1,1,wx.EXPAND|wx.ALL,40)
-        sz.Add(boton2,1,wx.EXPAND|wx.ALL,40)
-        sz.Add(boton3,1,wx.EXPAND|wx.ALL,60)
-        self.Bind(wx.EVT_BUTTON, self.onClickButton1,boton1)
-        self.Bind(wx.EVT_BUTTON, self.onClickButton2,boton2)
-        self.Bind(wx.EVT_BUTTON, self.onQuit, boton3)
-        self.SetSizer(sz)
+        self.Titulo = wx.StaticText(self.panel, -1, "Investigacion De Operaciones", (190,10))    
+        self.sz=wx.BoxSizer(wx.VERTICAL)
+        self.boton1 = wx.Button(self.panel,-1, u"Dos Fases")
+        self.boton2 = wx.Button(self.panel,-1, u"Lagrange")
+        self.boton3 = wx.Button(self.panel,-1, u"Salir")       
+        self.sz.Add(self.boton1,1,wx.EXPAND|wx.ALL,40)
+        self.sz.Add(self.boton2,1,wx.EXPAND|wx.ALL,40)
+        self.sz.Add(self.boton3,1,wx.EXPAND|wx.ALL,60)
+        self.Bind(wx.EVT_BUTTON, self.onClickButton1, self.boton1)
+        self.Bind(wx.EVT_BUTTON, self.onClickButton2, self.boton2)
+        self.Bind(wx.EVT_BUTTON, self.onQuit, self.boton3)
+        self.SetSizer(self.sz)
         self.Centre()
         self.Show(True)
 
