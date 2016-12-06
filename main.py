@@ -5,10 +5,47 @@ import wx.grid
 
 cantVar = 0
 cantRes = 0
+opcionn = ""
+Filas = 0
+Columnas = 0
 
 class DosFases():
     def __init__(self, matriz):
         self.matriz = matriz
+        self.Iniciar()
+
+    def Iniciar(self):
+        global Filas
+        global Columnas
+        self.tabla = []
+        for i in range(cantRes+1):
+            self.linea = []
+            for j in range(cantVar+1):
+                self.linea.append(int(self.matriz[i][j]))
+            self.tabla.append(self.linea)
+
+        for i in range(cantRes+1):
+            if(self.matriz[i][cantVar+1] == "<=" or self.matriz[i][cantVar+1] == "="):
+                self.tabla[i].append(1)
+                for k in range(cantRes+1):
+                    if(i != k):
+                        self.tabla[k].append(0)
+            if(self.matriz[i][cantVar+1] == ">="):
+                self.tabla[i].append(1)
+                self.tabla[i].append(1)
+                for k in range(cantRes+1):
+                    if(i != k):
+                        self.tabla[k].append(0)
+                        self.tabla[k].append(0)
+        Filas = len(self.tabla)
+        Columnas = len(self.tabla[0])
+        print Filas, Columnas
+
+    def PrimeraFase(self):
+        pass
+
+    def SegundaFase(self):
+        pass
 
     def __str__(self):
         cadena = "["
@@ -25,24 +62,29 @@ class RestriccionesUI(wx.Frame):
 
     def InitUI(self):
         self.SetTitle('Variables')
-        self.SetSize((500, 1000))
+        self.SetSize((500, 600))
         self.panel = wx.Panel(self)
         self.tabla = wx.grid.Grid(self.panel)
         self.tabla.CreateGrid(cantRes+1, cantVar+2)
         self.tabla.SetCellValue(0, cantVar+1, 'objetivo')
         self.tabla.SetCellValue(0, cantVar, '0')
-        self.sizer = wx.BoxSizer(wx.VERTICAL)
-        self.sizer.Add(self.tabla)
+        self.sizer = wx.BoxSizer(wx.HORIZONTAL)
+        self.sizer.Add(self.tabla,1,wx.ALIGN_CENTRE|wx.ALL,35)
         self.panel.SetSizer(self.sizer)
         self.bt=wx.Button(self.panel,-1,"Continuar", pos = (220, 500))
         self.Bind(wx.EVT_BUTTON, self.onContinuar, self.bt)
         self.opcion = ['Max', 'Min']
         self.text = wx.StaticText(self.panel, -1, "Objetivo", (220,400))
         self.edit = wx.ComboBox(self.panel, pos = (220, 450), choices = self.opcion,)
+        self.list = ['<=', '=', '>=']
+        self.choices=wx.grid.GridCellChoiceEditor(self.list, True)
+        for i in range(1, cantRes+1):
+            self.tabla.SetCellEditor(i, cantVar+1, self.choices)
         self.Centre()
         self.Show(True)
 
     def onContinuar(self, event):
+        global opcion
         self.tablero = []
         for i in range(cantRes+1):
             self.linea = []
@@ -50,8 +92,7 @@ class RestriccionesUI(wx.Frame):
                 self.linea.append(self.tabla.GetCellValue(i, j))
             self.tablero.append(self.linea)
         matrix = DosFases(self.tablero)
-        print matrix
-
+        opcion = self.edit.GetValue()
 
 class DosFasesUI(wx.Frame):   
     def __init__ (self, *args, **kwargs):       
